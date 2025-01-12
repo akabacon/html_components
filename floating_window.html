@@ -7,8 +7,8 @@
 </head>
 <body>
     <!-- 模拟从外部传入坐标 -->
-    <button onclick="openFloatingWindowAt(200, 150, 1)">在位置 (200, 150) 打开悬浮窗口</button>
-    <button onclick="openFloatingWindowAt(400, 300, 2)">在位置 (400, 300) 打开悬浮窗口</button>
+    <p id="1234">5</p>
+    <button onclick="openFloatingWindowFromInput(1234)">另一邊開啟</button>
 
     <!-- 悬浮窗口 -->
     <div class="floating-window" id="floatingWindow">
@@ -19,6 +19,20 @@
     </div>
 
     <script>
+        function openFloatingWindowFromInput(elementId) {
+            // 获取指定元素的位置信息
+            var element = document.getElementById(elementId);
+            var value = element.innerText; // 或 element.textContent;
+            var rect = element.getBoundingClientRect();
+            
+            // 获取元素的 x 和 y 坐标
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+
+            // 调用打开悬浮窗口的函数并传递坐标
+            openFloatingWindowAt(x, y, value);
+        }
+
         // 外部函数，用于传入位置并打开悬浮窗口
         function openFloatingWindowAt(top, left, element = null) {
             var floatingWindow = document.getElementById('floatingWindow');
