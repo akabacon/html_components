@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>floating-window</title>
+</head>
+<body>
+    <!-- 模拟从外部传入坐标 -->
+    <button onclick="openFloatingWindowAt(200, 150, 1)">在位置 (200, 150) 打开悬浮窗口</button>
+    <button onclick="openFloatingWindowAt(400, 300, 2)">在位置 (400, 300) 打开悬浮窗口</button>
+
+    <!-- 悬浮窗口 -->
+    <div class="floating-window" id="floatingWindow">
+        <span class="close-btn" onclick="toggleFloatingWindow()">&times;</span>
+        <h2>悬浮窗口</h2>
+        <p>这是一个悬浮窗口的内容。</p>
+        <p id="windowContent"></p> <!-- 用于显示被点击的数字 -->
+    </div>
+
+    <script>
+        // 外部函数，用于传入位置并打开悬浮窗口
+        function openFloatingWindowAt(top, left, element = null) {
+            var floatingWindow = document.getElementById('floatingWindow');
+            var windowContent = document.getElementById('windowContent');
+            
+            if (element !== null) {
+                windowContent.innerHTML = "你传入了数字: " + element;
+            }
+
+            // 设置悬浮窗口的位置
+            floatingWindow.style.top = top + "px";
+            floatingWindow.style.left = left + "px";
+
+            // 显示悬浮窗口
+            floatingWindow.style.display = 'block';
+        }
+
+        // 切换悬浮窗口的显示和隐藏
+        function toggleFloatingWindow() {
+            var floatingWindow = document.getElementById('floatingWindow');
+            if (floatingWindow.style.display === 'none' || floatingWindow.style.display === '') {
+                floatingWindow.style.display = 'block';
+            } else {
+                floatingWindow.style.display = 'none';
+            }
+        }
+    </script>
+
+    <style>
+        /* 悬浮窗口的样式 */
+        .floating-window {
+            position: absolute; /* 使用absolute来定位到传入的位置 */
+            width: 300px;
+            height: 200px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            z-index: 1000;
+            display: none; /* 初始状态下隐藏 */
+        }
+
+        /* 关闭按钮的样式 */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        /* 按钮样式 */
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</body>
+</html>
